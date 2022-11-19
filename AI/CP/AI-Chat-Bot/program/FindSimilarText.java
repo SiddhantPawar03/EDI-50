@@ -1,10 +1,7 @@
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import java.lang.Math;
 
 public class FindSimilarText extends JFrame implements KeyListener
 {
@@ -75,7 +72,7 @@ public class FindSimilarText extends JFrame implements KeyListener
 			quote = quote.trim();
 			quote = quote.toLowerCase();
 			similarString = SearchString(quote);
-			addText("\n--> biggol:\t "+similarString);
+			addText("\n--> College Mitra:\t "+similarString);
 		}
 	}
 	
