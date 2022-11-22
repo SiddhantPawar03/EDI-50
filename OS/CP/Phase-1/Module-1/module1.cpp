@@ -28,7 +28,7 @@ int main(){
         int res = readLine(fptr, buffer);
         
         if((buffer[0] == '$') && (buffer[1] == 'A')){
-            init(M, 100 * 4);
+            init(*M, 100 * 4);
             init(R, 4);
             init(IR, 4);
 

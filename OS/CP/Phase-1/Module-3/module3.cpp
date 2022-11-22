@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
+using namespace std;
 
 int readLine(FILE *fptr, char *buffer)
 {
@@ -21,6 +23,16 @@ void writeLine(FILE *fptr, char *content)
     fputc('\n', fptr);
 }
 
+int compareString(char *str1, char *str2, int len)
+{
+    for (int i = 0; i < len; i++)
+    {
+        if (*(str1 + i) != *(str2 + i))
+            return false;
+    }
+    return true;
+}
+
 void executeUserProgram(FILE *fReadPtr, int *IC, char *IR, char *R, int *C, char M[100][4], char *buffer)
 {
     int SI = false;
@@ -29,7 +41,8 @@ void executeUserProgram(FILE *fReadPtr, int *IC, char *IR, char *R, int *C, char
     while (true)
     {
         memcpy(IR, M[*IC], 4);
-
+        for(int i=0;i<4;i++) cout<<IR[i];
+        cout<<endl;
         if (IR[0] == 'G' && IR[1] == 'D')
         {
             SI = 1;
@@ -45,6 +58,36 @@ void executeUserProgram(FILE *fReadPtr, int *IC, char *IR, char *R, int *C, char
             memcpy(blockContent, M[(int)start], 10 * 4);
             memset(IR, '\0', 4);
             writeLine(fWritePtr, blockContent);
+        }
+        else if (IR[0] == 'L' && IR[1] == 'R')
+        {
+            int start = (IR[2] - 48) * 10 + IR[3] - 48;
+            memcpy(R, M[start], 4);
+        }
+        else if (IR[0] == 'S' && IR[1] == 'R')
+        {
+            int start = (IR[2] - 48) * 10 + IR[3] - 48;
+            memcpy(M[start],R, 4);
+        }
+        else if (IR[0] == 'C' && IR[1] == 'R')
+        {
+            int start = (IR[2] - 48) * 10 + (IR[3] - 48);
+
+            if (compareString(M[start], R, 4))
+            {
+                *C = true;
+            }
+            else
+            {
+                *C = false;
+            }
+        }
+        else if (IR[0] == 'B' && IR[1] == 'T')
+        {
+            if (*C == true)
+            {
+                *IC = (IR[2] - 48) * 10 + (IR[3] - 48) - 1;
+            }
         }
         else if (IR[0] == 'H')
         {
