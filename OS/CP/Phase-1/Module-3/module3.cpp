@@ -41,8 +41,6 @@ void executeUserProgram(FILE *fReadPtr, int *IC, char *IR, char *R, int *C, char
     while (true)
     {
         memcpy(IR, M[*IC], 4);
-        for(int i=0;i<4;i++) cout<<IR[i];
-        cout<<endl;
         if (IR[0] == 'G' && IR[1] == 'D')
         {
             SI = 1;
